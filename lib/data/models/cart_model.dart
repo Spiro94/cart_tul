@@ -4,10 +4,10 @@ import '../../domain/entities/item.dart';
 class CartModel extends Cart {
   CartModel(
     List<Item> items,
-    String status,
+    CartStatus status,
   ) : super(
-          items,
-          status,
+          items: items,
+          status: status,
         );
 
   factory CartModel.fromJson(Map<String, dynamic> json) {

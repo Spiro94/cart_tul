@@ -1,4 +1,5 @@
 import 'package:cart_tul/domain/entities/item.dart';
+import 'package:cart_tul/presentation/widgets/add_to_cart_button.dart';
 
 import '../../depedency_injection/dependency_injection.dart';
 import '../../domain/entities/product.dart';
@@ -18,8 +19,8 @@ class CardProduct extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 10,
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -51,18 +52,7 @@ class CardProduct extends StatelessWidget {
               ),
             ],
           ),
-          Align(
-              alignment: Alignment.topRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  instance<CartBloc>().add(AddProductEvent(Item(product)));
-                },
-                child: const Icon(Icons.add, color: Colors.white),
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  primary: Colors.blue, // <-- Button color
-                ),
-              )),
+          AddToCartButton(product: product),
         ],
       ),
     );

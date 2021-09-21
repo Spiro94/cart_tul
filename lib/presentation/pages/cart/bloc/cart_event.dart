@@ -7,32 +7,37 @@ abstract class CartEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetCartItems extends CartEvent {}
+class CartStarted extends CartEvent {}
 
-class AddProductEvent extends CartEvent {
+class CartItemAdded extends CartEvent {
   final Item item;
 
-  const AddProductEvent(this.item);
+  const CartItemAdded(this.item);
   @override
   List<Object> get props => [item];
 }
 
-class UpdateProductEvent extends CartEvent {
+class CartItemUpdated extends CartEvent {
   final Item item;
+  final UpdateAction updateAction;
 
-  const UpdateProductEvent(this.item);
+  const CartItemUpdated(this.item, {this.updateAction = UpdateAction.increase});
+
   @override
   List<Object> get props => [item];
 }
 
-class DeleteProductEvent extends CartEvent {
-  final Product product;
+enum UpdateAction { increase, decrease }
 
-  const DeleteProductEvent(this.product);
+class CartItemDeleted extends CartEvent {
+  final Item item;
+
+  const CartItemDeleted(this.item);
+
   @override
-  List<Object> get props => [product];
+  List<Object> get props => [item];
 }
 
-class ClearCartEvent extends CartEvent {
-  const ClearCartEvent();
+class CartCleared extends CartEvent {
+  const CartCleared();
 }

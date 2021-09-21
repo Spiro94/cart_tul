@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           create: (context) => instance<HomeBloc>()..add(GetProducts()),
         ),
         BlocProvider(
-          create: (context) => instance<CartBloc>(),
+          create: (context) => instance<CartBloc>()..add(CartStarted()),
         )
       ],
       child: const MaterialWidget(),

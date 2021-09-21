@@ -1,5 +1,5 @@
 name: cart_tul
-description: A new Flutter project.
+description: A nice and simple shopping cart.
 
 publish_to: 'none'
 
@@ -9,13 +9,13 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   cloud_firestore: ^2.5.3
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0
   equatable: ^2.0.3
   firebase_core: ^1.6.0
+  flutter:
+    sdk: flutter
   flutter_bloc: ^7.2.0
   flutter_launcher_icons: ^0.9.0
   flutter_lints: ^1.0.4
