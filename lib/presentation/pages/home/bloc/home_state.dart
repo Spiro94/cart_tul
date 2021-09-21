@@ -12,7 +12,7 @@ class HomeInitial extends HomeState {}
 class ProductsObtained extends HomeState {
   final List<Product> products;
 
-  ProductsObtained([this.products = const []]);
+  const ProductsObtained([this.products = const []]);
 
   @override
   List<Object> get props => [products];

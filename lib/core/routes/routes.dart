@@ -1,8 +1,7 @@
-import 'package:cart_tul/domain/entities/product.dart';
-import 'package:cart_tul/presentation/pages/detail/detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/pages/cart/cart.dart';
 import '../../presentation/pages/home/home.dart';
 
 class RouteGenerator {
@@ -10,9 +9,9 @@ class RouteGenerator {
     final args = settings.arguments;
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => HomePage());
-      case '/detail':
-        return MaterialPageRoute(builder: (_) => DetailPage(args as Product));
+        return MaterialPageRoute(builder: (_) => const HomePage());
+      case '/cart':
+        return MaterialPageRoute(builder: (_) => const CartPage());
 
       default:
         return _errorRoute();
@@ -23,9 +22,9 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (context) => Scaffold(
         appBar: AppBar(
-          title: Text('Error'),
+          title: const Text('Error'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('Page not found'),
         ),
       ),

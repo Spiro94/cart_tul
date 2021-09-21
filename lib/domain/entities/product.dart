@@ -1,9 +1,10 @@
 class Product {
-  final String id;
+  String id;
   final String name;
   final String sku;
   final String description;
   final String imageUrl;
+  final int price;
 
   Product(
     this.id,
@@ -11,5 +12,6 @@ class Product {
     this.sku,
     this.description,
     this.imageUrl,
+    this.price,
   );
 }

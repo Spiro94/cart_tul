@@ -1,9 +1,8 @@
-import 'package:cart_tul/domain/entities/order.dart';
-import 'package:cart_tul/domain/entities/product.dart';
+import 'item.dart';
 
 class Cart {
-  final List<Order> orders;
+  final List<Item> items;
   final String status;
 
-  Cart(this.orders, this.status);
+  Cart(this.items, this.status);
 }

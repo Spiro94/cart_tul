@@ -1,4 +1,4 @@
-import 'package:cart_tul/domain/entities/product.dart';
+import '../../domain/entities/product.dart';
 
 class ProductModel extends Product {
   ProductModel(
@@ -7,12 +7,14 @@ class ProductModel extends Product {
     String sku,
     String description,
     String imageUrl,
+    int price,
   ) : super(
           id,
           name,
           sku,
           description,
           imageUrl,
+          price,
         );
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -21,5 +23,6 @@ class ProductModel extends Product {
         json['sku'],
         json['description'],
         json['image_url'],
+        json['price'],
       );
 }

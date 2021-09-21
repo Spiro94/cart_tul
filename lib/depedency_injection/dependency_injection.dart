@@ -1,14 +1,16 @@
-import 'package:cart_tul/data/repositories/cart_repository_impl.dart';
-import 'package:cart_tul/domain/repositories/cart_repository.dart';
-import 'package:cart_tul/domain/usecases/get_product_list.dart';
-import 'package:cart_tul/domain/usecases/submit_order.dart';
-import 'package:cart_tul/presentation/pages/home/bloc/home_bloc.dart';
+import '../data/repositories/cart_repository_impl.dart';
+import '../domain/repositories/cart_repository.dart';
+import '../domain/usecases/get_product_list.dart';
+import '../domain/usecases/submit_order.dart';
+import '../presentation/pages/cart/bloc/cart_bloc.dart';
+import '../presentation/pages/home/bloc/home_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final instance = GetIt.instance;
 
 Future<void> init() async {
-  instance.registerFactory(() => HomeBloc(instance()));
+  instance.registerLazySingleton(() => HomeBloc(instance()));
+  instance.registerLazySingleton(() => CartBloc(instance()));
 
   instance.registerLazySingleton(() => GetProductList(instance()));
   instance.registerLazySingleton(() => SubmitOrder(instance()));

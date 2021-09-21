@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cart_tul/core/usecase/usecase.dart';
-import 'package:cart_tul/domain/entities/product.dart';
-import 'package:cart_tul/domain/usecases/get_product_list.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../../../../domain/entities/product.dart';
+import '../../../../domain/usecases/get_product_list.dart';
 import 'package:equatable/equatable.dart';
 
 part 'home_event.dart';
@@ -11,7 +11,7 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetProductList usecase;
-  HomeBloc(this.usecase) : super(ProductsObtained());
+  HomeBloc(this.usecase) : super(const ProductsObtained());
 
   @override
   Stream<HomeState> mapEventToState(
