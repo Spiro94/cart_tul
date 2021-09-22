@@ -2,6 +2,7 @@ import 'package:cart_tul/depedency_injection/dependency_injection.dart';
 import 'package:cart_tul/domain/entities/item.dart';
 import 'package:cart_tul/presentation/pages/cart/bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CartTile extends StatelessWidget {
   final Item item;
@@ -12,6 +13,7 @@ class CartTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currencyFormatter = NumberFormat.simpleCurrency(decimalDigits: 0);
     return Dismissible(
       key: Key(item.product.id),
       onDismissed: (direction) {
@@ -24,17 +26,17 @@ class CartTile extends StatelessWidget {
           child: ListTile(
             leading: _buildImage(),
             title: Text(item.product.name),
-            subtitle: Text('Subtotal: \$ ${item.price}'),
+            subtitle: Text('Subtotal: ${currencyFormatter.format(item.price)}'),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildRemoveButton(),
+                _buildAddButton(context),
                 Text(
                   item.quantity.toString(),
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
-                _buildAddButton(),
+                _buildRemoveButton(context),
               ],
             ),
           ),
@@ -43,7 +45,7 @@ class CartTile extends StatelessWidget {
     );
   }
 
-  IconButton _buildRemoveButton() {
+  IconButton _buildRemoveButton(BuildContext context) {
     return IconButton(
         onPressed: item.quantity == 1
             ? null
@@ -54,20 +56,20 @@ class CartTile extends StatelessWidget {
               },
         icon: Icon(
           Icons.remove_circle,
-          color: item.quantity == 1 ? null : Colors.black,
+          color: item.quantity == 1 ? null : Theme.of(context).primaryColor,
         ));
   }
 
-  IconButton _buildAddButton() {
+  IconButton _buildAddButton(BuildContext context) {
     return IconButton(
       onPressed: () {
         var tempItem =
             Item(item.product, quantity: item.quantity + 1, price: item.price);
         instance<CartBloc>().add(CartItemUpdated(tempItem));
       },
-      icon: const Icon(
+      icon: Icon(
         Icons.add_circle,
-        color: Colors.black,
+        color: Theme.of(context).primaryColor,
       ),
     );
   }

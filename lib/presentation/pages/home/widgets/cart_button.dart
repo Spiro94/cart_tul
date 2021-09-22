@@ -1,4 +1,5 @@
 import 'package:cart_tul/presentation/pages/cart/bloc/cart_bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,11 +26,13 @@ class CartButton extends StatelessWidget {
             if (counter > 0)
               CircleAvatar(
                 backgroundColor: Colors.white,
-                foregroundColor: Colors.blue,
                 maxRadius: 10,
                 child: Text(
                   counter.toString(),
-                  style: const TextStyle(fontSize: 15),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             IconButton(

@@ -1,6 +1,5 @@
 import 'package:cart_tul/presentation/pages/home/widgets/cart_button.dart';
 
-import '../cart/bloc/cart_bloc.dart';
 import 'bloc/home_bloc.dart';
 import '../../widgets/card_product.dart';
 import 'package:flutter/material.dart';

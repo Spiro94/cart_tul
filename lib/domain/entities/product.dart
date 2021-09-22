@@ -4,7 +4,7 @@ class Product {
   final String sku;
   final String description;
   final String imageUrl;
-  final int price;
+  final int unitPrice;
 
   Product(
     this.id,
@@ -12,6 +12,6 @@ class Product {
     this.sku,
     this.description,
     this.imageUrl,
-    this.price,
+    this.unitPrice,
   );
 }

@@ -87,9 +87,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Item _createItem(Item item, {int created = 0, bool increment = true}) {
     int price;
     if (increment) {
-      price = item.price + item.product.price;
+      price = item.price + item.product.unitPrice;
     } else {
-      price = item.price - item.product.price;
+      price = item.price - item.product.unitPrice;
     }
     return Item(item.product, quantity: item.quantity + created, price: price);
   }

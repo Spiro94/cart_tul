@@ -1,3 +1,5 @@
+import 'package:cart_tul/core/themes/app_theme.dart';
+
 import 'depedency_injection/dependency_injection.dart';
 import 'presentation/pages/cart/bloc/cart_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +33,10 @@ class MaterialWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'CartTul',
       debugShowCheckedModeBanner: false,
+      theme: lightTheme,
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
     );

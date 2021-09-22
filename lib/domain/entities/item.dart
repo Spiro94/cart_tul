@@ -1,5 +1,3 @@
-import 'package:equatable/equatable.dart';
-
 import 'product.dart';
 
 class Item {

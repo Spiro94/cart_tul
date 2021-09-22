@@ -1,11 +1,8 @@
-import 'package:cart_tul/domain/entities/item.dart';
-import 'package:cart_tul/presentation/widgets/add_to_cart_button.dart';
-
-import '../../depedency_injection/dependency_injection.dart';
-import '../../domain/entities/product.dart';
-import '../pages/cart/bloc/cart_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../domain/entities/product.dart';
+import 'add_to_cart_button.dart';
 
 class CardProduct extends StatelessWidget {
   final Product product;
@@ -44,10 +41,9 @@ class CardProduct extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                '\$ ${product.price}',
+                '\$ ${product.unitPrice}',
                 style: const TextStyle(
                   fontSize: 15,
-                  // fontWeight: FontWeight.bold,
                 ),
               ),
             ],
