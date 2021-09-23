@@ -1,3 +1,5 @@
+import '../../domain/entities/cart.dart';
+
 abstract class UseCase<Type, P> {
   Type call(P params);
 }
@@ -5,6 +7,7 @@ abstract class UseCase<Type, P> {
 class NoParams {}
 
 class Params {
-  final String query;
-  const Params(this.query);
+  final Cart cart;
+
+  Params(this.cart);
 }

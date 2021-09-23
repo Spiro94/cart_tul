@@ -1,4 +1,5 @@
-import 'package:cart_tul/presentation/pages/home/widgets/cart_button.dart';
+import 'widgets/cart_button.dart';
+import '../../widgets/loading_indicator.dart';
 
 import 'bloc/home_bloc.dart';
 import '../../widgets/card_product.dart';
@@ -39,18 +40,7 @@ class HomePage extends StatelessWidget {
                     itemCount: state.products.length,
                   );
                 }
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    CircularProgressIndicator(
-                      color: Colors.black,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text('Cargando')
-                  ],
-                );
+                return const LoadingIndicator();
               }),
             ),
           ],

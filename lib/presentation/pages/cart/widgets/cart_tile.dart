@@ -1,6 +1,6 @@
-import 'package:cart_tul/depedency_injection/dependency_injection.dart';
-import 'package:cart_tul/domain/entities/item.dart';
-import 'package:cart_tul/presentation/pages/cart/bloc/cart_bloc.dart';
+import '../../../../depedency_injection/dependency_injection.dart';
+import '../../../../domain/entities/item.dart';
+import '../bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

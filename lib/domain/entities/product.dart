@@ -14,4 +14,24 @@ class Product {
     this.imageUrl,
     this.unitPrice,
   );
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        json['id'] ?? '',
+        json['name'],
+        json['sku'],
+        json['description'],
+        json['image_url'],
+        json['unit_price'],
+      );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'sku': sku,
+      'description': description,
+      'image_url': imageUrl,
+      'unit_price': unitPrice,
+    };
+  }
 }

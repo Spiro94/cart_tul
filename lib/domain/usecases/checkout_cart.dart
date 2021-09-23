@@ -4,12 +4,12 @@ import '../../core/error/failure.dart';
 import '../../core/usecase/usecase.dart';
 import '../repositories/cart_repository.dart';
 
-class SubmitOrder implements UseCase<Future<Either<Failure, bool>>, NoParams> {
+class CheckoutCart implements UseCase<Future<Either<Failure, bool>>, Params> {
   final CartRepository repository;
 
-  SubmitOrder(this.repository);
+  CheckoutCart(this.repository);
   @override
-  call(NoParams params) async {
-    return await repository.submitOrder();
+  call(Params params) async {
+    return await repository.checkoutCart(params.cart);
   }
 }

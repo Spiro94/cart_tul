@@ -1,7 +1,10 @@
-import 'package:cart_tul/depedency_injection/dependency_injection.dart';
-import 'package:cart_tul/domain/entities/item.dart';
-import 'package:cart_tul/presentation/pages/cart/bloc/cart_bloc.dart';
-import 'package:cart_tul/presentation/pages/cart/widgets/cart_tile.dart';
+import 'package:cart_tul/domain/entities/cart.dart';
+
+import '../../../depedency_injection/dependency_injection.dart';
+import '../../../domain/entities/item.dart';
+import 'bloc/cart_bloc.dart';
+import 'widgets/cart_tile.dart';
+import '../../widgets/loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +29,19 @@ class CartPage extends StatelessWidget {
           )
         ],
       ),
-      body: BlocBuilder<CartBloc, CartState>(
+      body: BlocConsumer<CartBloc, CartState>(
+        listener: (context, state) {
+          if (state is CartLoaded) {
+            if (!state.success) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Something went wrong!')));
+            }
+            if (state.completed) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Cart checked out!')));
+            }
+          }
+        },
         builder: (context, state) {
           if (state is CartLoaded) {
             if (state.cart.items.isNotEmpty) {
@@ -60,7 +75,10 @@ class CartPage extends StatelessWidget {
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
                             ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  instance<CartBloc>()
+                                      .add(CartCheckout(state.cart));
+                                },
                                 style: ElevatedButton.styleFrom(
                                     shape: const StadiumBorder()),
                                 child: const Text('Checkout')),
@@ -71,6 +89,14 @@ class CartPage extends StatelessWidget {
               );
             }
           }
+          if (state is CartLoading) {
+            return const Center(
+              child: LoadingIndicator(
+                message: 'Checking out\nyour products!',
+              ),
+            );
+          }
+
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

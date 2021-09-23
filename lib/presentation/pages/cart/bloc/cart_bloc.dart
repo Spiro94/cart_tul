@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cart_tul/domain/entities/cart.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../../../../domain/entities/cart.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../domain/entities/item.dart';
-import '../../../../domain/usecases/submit_order.dart';
+import '../../../../domain/usecases/checkout_cart.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  final SubmitOrder usecase;
+  final CheckoutCart usecase;
   CartBloc(this.usecase) : super(CartLoading());
 
   @override
@@ -26,6 +27,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       yield* _mapCartItemUpdatedToState(event, state);
     } else if (event is CartItemDeleted) {
       yield* _mapCartItemDeletedToState(event, state);
+    } else if (event is CartCheckout) {
+      yield* _mapCartCheckoutToState(event, state);
     } else if (event is CartCleared) {
       yield* _mapCartClearedToState(event, state);
     }
@@ -81,6 +84,25 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           .removeWhere((item) => item.product.id == event.item.product.id);
 
       yield CartLoaded(Cart(items: state.cart.items));
+    }
+  }
+
+  Stream<CartState> _mapCartCheckoutToState(
+      CartCheckout event, CartState state) async* {
+    if (state is CartLoaded) {
+      yield CartLoading();
+      try {
+        var cart = Cart(items: event.cart.items, status: CartStatus.completed);
+        var response = await usecase.call(Params(cart));
+
+        yield response.fold(
+            (l) => CartLoaded(event.cart, success: false),
+            (r) => r
+                ? CartLoaded(Cart(), completed: true)
+                : CartLoaded(event.cart, success: false));
+      } catch (e) {
+        yield CartLoaded(event.cart, success: false);
+      }
     }
   }
 

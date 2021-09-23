@@ -19,15 +19,12 @@ class CartItemAdded extends CartEvent {
 
 class CartItemUpdated extends CartEvent {
   final Item item;
-  final UpdateAction updateAction;
 
-  const CartItemUpdated(this.item, {this.updateAction = UpdateAction.increase});
+  const CartItemUpdated(this.item);
 
   @override
   List<Object> get props => [item];
 }
-
-enum UpdateAction { increase, decrease }
 
 class CartItemDeleted extends CartEvent {
   final Item item;
@@ -36,6 +33,15 @@ class CartItemDeleted extends CartEvent {
 
   @override
   List<Object> get props => [item];
+}
+
+class CartCheckout extends CartEvent {
+  final Cart cart;
+
+  const CartCheckout(this.cart);
+
+  @override
+  List<Object> get props => [cart];
 }
 
 class CartCleared extends CartEvent {

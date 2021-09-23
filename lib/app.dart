@@ -1,4 +1,4 @@
-import 'package:cart_tul/core/themes/app_theme.dart';
+import 'core/themes/app_theme.dart';
 
 import 'depedency_injection/dependency_injection.dart';
 import 'presentation/pages/cart/bloc/cart_bloc.dart';

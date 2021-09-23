@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../core/error/failure.dart';
+import '../../domain/entities/cart.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/repositories/cart_repository.dart';
-import '../models/product_model.dart';
 
 class CartRepositoryImpl implements CartRepository {
   @override
@@ -15,7 +15,7 @@ class CartRepositoryImpl implements CartRepository {
       var snapshot = await products.get();
 
       final productList = snapshot.docs.map((doc) {
-        var product = ProductModel.fromJson(doc.data() as Map<String, dynamic>);
+        var product = Product.fromJson(doc.data() as Map<String, dynamic>);
         product.id = doc.id;
         return product;
       }).toList();
@@ -27,11 +27,14 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> submitOrder() async {
+  Future<Either<Failure, bool>> checkoutCart(Cart cart) async {
     try {
-      // TODO: implement submitOrder
+      CollectionReference products =
+          FirebaseFirestore.instance.collection('carts');
 
-      return Right(true);
+      await products.add(cart.toJson());
+
+      return const Right(true);
     } on Exception catch (e) {
       return Left(Failure(e.toString()));
     }

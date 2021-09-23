@@ -1,7 +1,7 @@
-import 'package:cart_tul/depedency_injection/dependency_injection.dart';
-import 'package:cart_tul/domain/entities/item.dart';
-import 'package:cart_tul/domain/entities/product.dart';
-import 'package:cart_tul/presentation/pages/cart/bloc/cart_bloc.dart';
+import '../../depedency_injection/dependency_injection.dart';
+import '../../domain/entities/item.dart';
+import '../../domain/entities/product.dart';
+import '../pages/cart/bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
 
 class AddToCartButton extends StatelessWidget {
@@ -15,6 +15,9 @@ class AddToCartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: const StadiumBorder(),
+      ),
       onPressed: () {
         instance<CartBloc>().add(CartItemAdded(Item(product)));
       },

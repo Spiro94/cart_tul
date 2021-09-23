@@ -11,8 +11,10 @@ class CartLoading extends CartState {
 
 class CartLoaded extends CartState {
   final Cart cart;
+  final bool success;
+  final bool completed;
 
-  const CartLoaded(this.cart);
+  const CartLoaded(this.cart, {this.success = true, this.completed = false});
 
   @override
   List<Object?> get props => [cart];
