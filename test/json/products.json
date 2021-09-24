@@ -1,0 +1,4 @@
+[
+    { "name": "name", "sku": "sku", "description": "description", "image_url": "imageUrl", "unit_price": 20 },
+    { "name": "name1", "sku": "sku1", "description": "description1", "image_url": "imageUrl1", "unit_price": 22 }
+]

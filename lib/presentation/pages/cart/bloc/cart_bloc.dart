@@ -38,20 +38,30 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       CartItemAdded event, CartState state) async* {
     if (state is CartLoaded) {
       int index = state.cart.items
-          .indexWhere((item) => item.product.id == event.item.product.id);
+          .indexWhere((item) => item.product.sku == event.item.product.sku);
       if (index == -1) {
         yield CartLoaded(
             Cart(items: [...state.cart.items, _createItem(event.item)]));
       } else {
-        state.cart.items[index] =
-            _createItem(state.cart.items[index], created: 1);
-        yield CartLoaded(Cart(items: List.from(state.cart.items)));
+        var items = <Item>[];
+
+        for (var i = 0; i < state.cart.items.length; i++) {
+          if (i == index) {
+            items.add(_createItem(state.cart.items[index], created: 1));
+          } else {
+            items.add(state.cart.items[i]);
+          }
+        }
+        yield CartLoaded(Cart(
+          items: items,
+          status: CartStatus.completed,
+        ));
       }
     }
   }
 
   Stream<CartState> _mapCartStartedToState() async* {
-    yield CartLoaded(Cart(items: []));
+    yield const CartLoaded(Cart(items: []));
   }
 
   Stream<CartState> _mapCartItemUpdatedToState(
@@ -59,7 +69,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     if (state is CartLoaded) {
       final updatedProducts = state.cart.items
           .map(
-            (item) => item.product.id == event.item.product.id
+            (item) => item.product.sku == event.item.product.sku
                 ? _createItem(event.item,
                     increment: event.item.quantity > item.quantity)
                 : item,
@@ -73,17 +83,29 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Stream<CartState> _mapCartClearedToState(
       CartCleared event, CartState state) async* {
     if (state is CartLoaded) {
-      yield CartLoaded(Cart());
+      yield const CartLoaded(Cart());
     }
   }
 
   Stream<CartState> _mapCartItemDeletedToState(
       CartItemDeleted event, CartState state) async* {
     if (state is CartLoaded) {
-      state.cart.items
-          .removeWhere((item) => item.product.id == event.item.product.id);
+      int index = state.cart.items
+          .indexWhere((item) => item.product.sku == event.item.product.sku);
+      var items = <Item>[];
+      if (index == -1) {
+        for (var i = 0; i < state.cart.items.length; i++) {
+          if (i != index) {
+            items.add(state.cart.items[i]);
+          }
+        }
+        yield CartLoaded(Cart(
+          items: items,
+          status: CartStatus.pending,
+        ));
+      }
 
-      yield CartLoaded(Cart(items: state.cart.items));
+      yield CartLoaded(Cart(items: items));
     }
   }
 
@@ -98,7 +120,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         yield response.fold(
             (l) => CartLoaded(event.cart, success: false),
             (r) => r
-                ? CartLoaded(Cart(), completed: true)
+                ? const CartLoaded(Cart(), completed: true)
                 : CartLoaded(event.cart, success: false));
       } catch (e) {
         yield CartLoaded(event.cart, success: false);

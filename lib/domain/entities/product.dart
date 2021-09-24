@@ -1,13 +1,13 @@
-class Product {
-  String id;
+import 'package:equatable/equatable.dart';
+
+class Product extends Equatable {
   final String name;
   final String sku;
   final String description;
   final String imageUrl;
   final int unitPrice;
 
-  Product(
-    this.id,
+  const Product(
     this.name,
     this.sku,
     this.description,
@@ -16,7 +16,6 @@ class Product {
   );
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-        json['id'] ?? '',
         json['name'],
         json['sku'],
         json['description'],
@@ -26,7 +25,6 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'sku': sku,
       'description': description,
@@ -34,4 +32,7 @@ class Product {
       'unit_price': unitPrice,
     };
   }
+
+  @override
+  List<Object?> get props => [name, sku, description, imageUrl, unitPrice];
 }

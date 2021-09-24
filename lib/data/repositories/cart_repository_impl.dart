@@ -14,11 +14,9 @@ class CartRepositoryImpl implements CartRepository {
     try {
       var snapshot = await products.get();
 
-      final productList = snapshot.docs.map((doc) {
-        var product = Product.fromJson(doc.data() as Map<String, dynamic>);
-        product.id = doc.id;
-        return product;
-      }).toList();
+      final productList = snapshot.docs
+          .map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
 
       return Right(productList);
     } on Exception catch (e) {

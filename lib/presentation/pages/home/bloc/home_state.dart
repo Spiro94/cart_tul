@@ -2,12 +2,7 @@ part of 'home_bloc.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
-
-  @override
-  List<Object> get props => [];
 }
-
-class HomeInitial extends HomeState {}
 
 class ProductsObtained extends HomeState {
   final List<Product> products;
@@ -18,6 +13,12 @@ class ProductsObtained extends HomeState {
   List<Object> get props => [products];
 }
 
-class ProductsLoading extends HomeState {}
+class ProductsLoading extends HomeState {
+  @override
+  List<Object> get props => [];
+}
 
-class ProductsError extends HomeState {}
+class ProductsError extends HomeState {
+  @override
+  List<Object> get props => [];
+}

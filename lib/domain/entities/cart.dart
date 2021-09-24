@@ -1,10 +1,12 @@
+import 'package:equatable/equatable.dart';
+
 import 'item.dart';
 
-class Cart {
+class Cart extends Equatable {
   final List<Item> items;
   final CartStatus status;
 
-  Cart({this.items = const <Item>[], this.status = CartStatus.pending});
+  const Cart({this.items = const <Item>[], this.status = CartStatus.pending});
 
   factory Cart.fromJson(Map<String, dynamic> json) {
     var items = <Item>[];
@@ -14,21 +16,25 @@ class Cart {
     }
     return Cart(
       items: items,
-      status: json['status'],
+      status: CartStatus.values
+          .firstWhere((e) => e.toShortString() == json['status']),
     );
   }
 
   Map<String, dynamic> toJson() {
-    var listMap = [];
+    var itemsMap = [];
 
     for (var item in items) {
-      listMap.add(item.toJson());
+      itemsMap.add(item.toJson());
     }
     return {
-      'items': listMap,
+      'items': itemsMap,
       'status': status.toShortString(),
     };
   }
+
+  @override
+  List<Object?> get props => [items, status];
 }
 
 enum CartStatus { pending, completed }

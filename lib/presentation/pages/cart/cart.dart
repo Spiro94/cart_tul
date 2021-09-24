@@ -1,5 +1,3 @@
-import 'package:cart_tul/domain/entities/cart.dart';
-
 import '../../../depedency_injection/dependency_injection.dart';
 import '../../../domain/entities/item.dart';
 import 'bloc/cart_bloc.dart';

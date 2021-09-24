@@ -1,11 +1,13 @@
+import 'package:equatable/equatable.dart';
+
 import 'product.dart';
 
-class Item {
+class Item extends Equatable {
   final Product product;
   final int quantity;
   final int price;
 
-  Item(this.product, {this.quantity = 1, this.price = 0});
+  const Item(this.product, {this.quantity = 1, this.price = 0});
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         Product.fromJson(json['product']),
@@ -18,4 +20,7 @@ class Item {
         'quantity': quantity,
         'price': price,
       };
+
+  @override
+  List<Object?> get props => [product, quantity, price];
 }

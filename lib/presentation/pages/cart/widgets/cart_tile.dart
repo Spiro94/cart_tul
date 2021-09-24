@@ -15,7 +15,7 @@ class CartTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final currencyFormatter = NumberFormat.simpleCurrency(decimalDigits: 0);
     return Dismissible(
-      key: Key(item.product.id),
+      key: Key(item.product.sku),
       onDismissed: (direction) {
         instance<CartBloc>().add(CartItemDeleted(item));
       },
